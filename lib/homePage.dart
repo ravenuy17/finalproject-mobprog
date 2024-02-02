@@ -111,45 +111,56 @@ class _HomePageState extends State<HomePage> {
 
   // Check result function
   void checkResult() {
-    int result = operator == '+'
-        ? numberA + numberB
-        : 0; // You can expand this for other operators
+    // Validate user's answer
+    if (userAnswer.isNotEmpty) {
+      try {
+        int userAnswerInt = int.parse(userAnswer);
 
-    if (result == int.parse(userAnswer)) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.blueGrey,
-            content: Container(
-              height: 250,
-              color: Colors.blueGrey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Great job!', style: whiteTextStyle),
-                  GestureDetector(
-                    onTap: goToNextQuestion,
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.indigo,
-                        borderRadius: BorderRadius.circular(8),
+        int result = operator == '+'
+            ? numberA + numberB
+            : 0; // You can expand this for other operators
+
+        if (result == userAnswerInt) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.blueGrey,
+                content: Container(
+                  height: 250,
+                  color: Colors.blueGrey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('Great job!', style: whiteTextStyle),
+                      GestureDetector(
+                        onTap: goToNextQuestion,
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.indigo,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
-        },
-      );
+        } else {
+          print('Try again!');
+        }
+      } catch (e) {
+        print('Invalid input. Please enter a valid number.');
+      }
     } else {
-      print('Try again!');
+      print('Answer cannot be empty. Please enter a number.');
     }
   }
 
