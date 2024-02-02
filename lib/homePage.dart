@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_5_experiment/constant.dart';
-import 'package:flutter_application_5_experiment/util/numKey.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,8 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //number pad list
-  List<String> numberPad = [
+  // Number pad list
+  static const List<String> numberPad = [
     '7',
     '8',
     '9',
@@ -28,23 +26,25 @@ class _HomePageState extends State<HomePage> {
     '=',
     '0'
   ];
-//numA and numB
+
+  // NumA and NumB
   int numberA = 1;
   int numberB = 1;
-  //user answer
+
+  // User answer
   String userAnswer = '';
 
-  //button tapped
+  // Button tapped
   void buttonTapped(String button) {
     setState(() {
       if (button == '=') {
-        //calculate the ff.
-        CheckResult();
+        // Calculate the result
+        checkResult();
       } else if (button == 'C') {
-        // clear input
+        // Clear input
         userAnswer = '';
       } else if (button == 'DEL') {
-        // delete last number
+        // Delete last number
         if (userAnswer.isNotEmpty) {
           userAnswer = userAnswer.substring(0, userAnswer.length - 1);
         }
@@ -54,60 +54,59 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-//uncommitted changes
-  void CheckResult() {
+  // Check result
+  void checkResult() {
     if (numberA + numberB == int.parse(userAnswer)) {
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.blueGrey,
-              content: Container(
-                height: 250,
-                color: Colors.blueGrey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('Great job!', style: whiteTextStyle),
-                    //button to go to next question
-                    GestureDetector(
-                      onTap: goToNextQuestion,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.blueGrey,
+            content: Container(
+              height: 250,
+              color: Colors.blueGrey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Great job!', style: TextStyle(color: Colors.white)),
+                  GestureDetector(
+                    onTap: goToNextQuestion,
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      ),
                     ),
-                    Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.indigo,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        )),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          });
+            ),
+          );
+        },
+      );
     } else {
       print('Try again!');
     }
   }
 
-  //create random numbers
-  var randomNumber = Random();
-
+  // Go to next question
   void goToNextQuestion() {
-    //dismiss alert
+    // Dismiss alert
     Navigator.of(context).pop();
 
-    //reset values
+    // Reset values
     setState(() {
       userAnswer = '';
     });
 
-    //create new question
-    numberA = randomNumber.nextInt(1000);
-    numberB = randomNumber.nextInt(1000);
+    // Create new question
+    numberA = Random().nextInt(1000);
+    numberB = Random().nextInt(1000);
   }
 
   @override
@@ -116,24 +115,23 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.amberAccent[100],
       body: Column(
         children: <Widget>[
-          //level progress, needs 5 correct answers in a row to proceed to the next level
+          // Level progress
           Container(height: 100, color: Colors.amber),
-          //questions
+          // Questions
           Expanded(
             child: Container(
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  // question
                   children: [
                     Expanded(
                       child: Text(
-                        numberA.toString() + '+' + numberB.toString() + '=',
-                        style: defaultTextStyle,
+                        '$numberA + $numberB =',
+                        style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    // answer box
+                    // Answer box
                     GestureDetector(
                       onTap: goToNextQuestion,
                       child: Container(
@@ -153,8 +151,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-
-          //number pad
+          // Number pad
           Expanded(
             flex: 3,
             child: Padding(
@@ -175,6 +172,33 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  final String child;
+  final VoidCallback onTap;
+
+  const MyButton({required this.child, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Text(
+            child,
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
       ),
     );
   }
