@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_5_experiment/constant.dart';
 
 class MyButton extends StatelessWidget {
+  final String child;
+  final VoidCallback onTap;
+
   const MyButton({
     Key? key,
     required this.child,
     required this.onTap,
   }) : super(key: key);
-
-  final String child;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
