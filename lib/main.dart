@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'homePage.dart';
+import 'addition_easy.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
