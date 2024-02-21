@@ -23,7 +23,7 @@ class ResultMessage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Great Job!',
+              message,
               style: blackTextStyle,
             ),
             GestureDetector(
