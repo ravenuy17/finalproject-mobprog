@@ -29,10 +29,10 @@ class _Division extends State<Division> {
     '0',
     'Submit',
   ];
-  // subtrahend
+  // dicidend
   int numberA = 0;
   int numberB = 0;
-  // difference or user answer
+  //  quotient or user answer
   String userAnswer = '';
 
   void generateNumbers() {

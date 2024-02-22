@@ -94,7 +94,7 @@ class _Multiplication extends State<Multiplication> {
         if (userAnswer.isNotEmpty) {
           userAnswer = userAnswer.substring(0, userAnswer.length - 1);
         }
-      } else if (userAnswer.length < 4) {
+      } else if (userAnswer.length < 6) {
         userAnswer += button;
       }
     });
