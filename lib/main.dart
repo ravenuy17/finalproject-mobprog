@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_5_experiment/addition.dart';
-import 'package:flutter_application_5_experiment/division.dart';
-import 'package:flutter_application_5_experiment/multiplication.dart';
-import 'package:flutter_application_5_experiment/subtraction.dart';
-import 'addition.dart';
+import 'homepage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AdditionEasy(),
+    return MaterialApp(
+      home: Homepage(),
     );
   }
 }
